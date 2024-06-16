@@ -1,0 +1,137 @@
+.container-navbar {
+    background-color: #6c886c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px; 
+    
+}
+
+.container-mobile {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.container-logo {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 18px;
+}
+
+#icon-menu:hover {
+    cursor: pointer;
+}
+
+.open {
+    display: initial;
+}
+
+.close {
+    display: none;
+}
+
+.container-menu {
+    padding-top: 10px;
+}
+
+.container-links {
+    color: #dbecdb;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.container-links li:hover {
+    color: #fff;
+}
+
+#logout:hover {
+    color: #6c886c;
+}
+
+
+@media (min-width: 576px){
+    
+}
+
+@media (min-width: 768px){
+    #icon-menu {
+        display: none;
+    }
+    .container-navbar {
+        height: 80px;
+        background-color: #8bac8b;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 20px; 
+    }
+
+    .container-logo {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        gap: 18px;
+    }
+
+    #menu {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container-links {
+        color: #edffed;
+        font-size: 18px;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .container-links li:hover {
+        color: #fff;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .open {
+        display: initial;
+    }
+
+    .close {
+        display: initial;
+    }
+
+}
+
+@media (min-width: 992px){
+    .container-navbar {
+        height: 80px;
+        padding: 20px 50px; 
+    }
+
+    .container-links {
+        font-size: 20px;
+        gap: 30px;
+    }
+}
+
+@media (min-width: 1200px){
+    
+
+}
+
+@media (min-width: 1400px){
+
+}

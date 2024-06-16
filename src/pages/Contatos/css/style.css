@@ -1,0 +1,46 @@
+.container-cadastro {
+    background-color: rgb(245, 245, 245);
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0;
+    padding: 10px;
+    gap: 5px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(202, 170, 170, 0.06);
+}
+
+.container-label {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #4a5568;
+}
+
+.container-input {
+    height: 35px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    padding: 2px 9px;
+}
+
+.container-error {
+    color: rgb(212, 39, 39);
+    font-style: italic;
+}
+
+.container-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.container-buttons > input {
+    width: 85px;
+    height: 40px;
+    background-color: #6c886c;
+    font-weight: bold;
+    padding: 4px 2px;
+    color: white;
+    border-radius: 3px;
+}
+
+.container-buttons > input:hover {
+    cursor: pointer;
+    background-color: #597959;
+}
