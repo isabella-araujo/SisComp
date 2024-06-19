@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { alterarCotacao, excluirCotacao, inserirCotacao, obterCotacao } from "./infra/cotacoes";
 import { regexPreco } from "../../assets/Regex";
+import { listarProdutos } from "../Produtos/infra/produtos";
 
 export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
     const { register, handleSubmit, formState: { errors, isSubmitted }, reset, setValue } = useForm();
+    const [produtos, setProdutos] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -16,6 +18,9 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
             } else {
                 reset();
             }
+
+            const produtos = await listarProdutos();
+            setProdutos(produtos);
         }
 
         fetchData();
@@ -40,20 +45,15 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
     return (
         <div>
             <form className="container-cadastro" onSubmit={handleSubmit(submeterDados)}>
-                <label className="container-label" htmlFor="produto">Nome do produto</label>
-                <input className="container-input" placeholder='Nome do Produto' size={80} {...register('produto', {
-                    required: "O campo produto é obrigatório",
-                    validate: {
-                        minLength: (value) => value.length >= 5 || "O campo produto precisa ter pelo menos 5 caracteres",
-                        maxLength: (value) => value.length <= 80 || "O campo produto pode ter até 80 caracteres",
-                    },
-                })} />
 
-                <div className="container-error">
-                    {errors.produto?.message && (
-                        <div>{errors.produto.message}</div>
-                    )}
-                </div>
+                <label className="container-label" htmlFor="produtos">Escolha um produto:</label>
+                <select className="container-input" name="produtos" {...register("produto", {
+                    required: "O campo fornecedor é obrigatório"
+                })}>
+                    {produtos.map(produto => (
+                        <option value={produto.nome} key={produto.id}>{produto.nome}</option>
+                    ))}
+                </select>
 
                 <label className="container-label" htmlFor="preco">Preço</label>
                 <input className="container-input" placeholder='Preço' size={10} {...register('preco', {

@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { alterarFornecedor, excluirFornecedor, inserirFornecedor, obterFornecedor } from "./infra/fornecedores";
 
+
+// add cnpj e razao social
 export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
     const { register, handleSubmit, formState: { errors, isSubmitted }, reset, setValue } = useForm();
 
@@ -10,7 +12,7 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
             if (idEmEdicao && !isSubmitted) {
                 const fornecedor = await obterFornecedor(idEmEdicao);
                 setValue("nome", fornecedor.nome);
-                setValue("endereco", fornecedor.endereco);
+                setValue("cnpj", fornecedor.cnpj);
             } else {
                 reset();
             }
@@ -53,18 +55,18 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
                     )}
                 </div>
 
-                <label className="container-label" htmlFor="endereco">Endereço</label>
-                <input className="container-input" placeholder='Endereço' size={50} {...register('endereco', {
-                    required: "O campo endereço é obrigatório",
+                <label className="container-label" htmlFor="cnpj">CNPJ</label>
+                <input className="container-input" placeholder='CNPJ' size={18} {...register('cnpj', {
+                    required: "O campo CNPJ é obrigatório",
                     validate: {
-                        minLength: (value) => value.length >= 10 || "O campo endereço precisa ter pelo menos 10 caracteres",
-                        maxLength: (value) => value.length <= 50 || "O campo endereço pode ter até 50 caracteres",
+                        minLength: (value) => value.length >= 14 || "O campo CNPJ precisa ter pelo menos 10 caracteres",
+                        maxLength: (value) => value.length <= 18 || "O campo CNPJ pode ter até 50 caracteres",
                     },
                 })} />
 
                 <div className="container-error">
-                    {errors.endereco?.message && (
-                        <div>{errors.endereco.message}</div>
+                    {errors.cnpj?.message && (
+                        <div>{errors.cnpj.message}</div>
                     )}
                 </div>
 

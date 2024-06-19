@@ -44,3 +44,24 @@
     cursor: pointer;
     background-color: #597959;
 }
+
+table {
+    margin: 5px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-collapse: collapse;
+    border-radius: 5px;
+    overflow-x: auto;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #d4d4d4;
+  }
+  
+  th, td {
+    padding: 5px 10px;
+  }
+  
+  .table-header {
+    color: white;
+    background-color: #6c886c;
+  }

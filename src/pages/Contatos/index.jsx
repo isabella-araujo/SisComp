@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { listarContatos } from "./infra/contatos";
 import ListaContatos from "./ListaContatos";
 import Cadastro from "./Cadastro";
+import '../style.css'
 
 export default function Contatos() {
     const [contatos, setContatos] = useState([]);

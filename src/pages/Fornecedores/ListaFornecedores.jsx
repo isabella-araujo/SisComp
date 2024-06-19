@@ -10,8 +10,8 @@ export default function ListaFornecedores({ fornecedores = [], setIdEmEdicao }) 
             sortable: true,
         },
         {
-            name: 'Endereço',
-            selector: row => row.endereco,
+            name: 'CNPJ',
+            selector: row => row.cnpj,
         },
     ];
 

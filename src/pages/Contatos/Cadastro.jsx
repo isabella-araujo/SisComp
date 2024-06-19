@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { regexEmail, regexNumerico } from "../../assets/Regex";
 import { excluirContato, inserirContato, obterContato, alterarContato } from "./infra/contatos";
-import './css/style.css';
+import { listarFornecedores } from "../Fornecedores/infra/fornecedores";
 
 export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
     const { register, handleSubmit, formState: { errors, isSubmitted }, reset, setValue } = useForm();
+    const [fornecedores, setFornecedores] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -17,6 +18,9 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
             } else {
                 reset();
             }
+
+            const fornecedores = await listarFornecedores();
+            setFornecedores(fornecedores);
         }
 
         fetchData();
@@ -41,21 +45,21 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
     return (
         <div>
             <form className="container-cadastro" onSubmit={handleSubmit(submeterDados)}>
-            <label className="container-label" htmlFor="produto">Nome</label>
-                <input className="container-input" placeholder='Nome' size={50} {...register('nome', {
-                    required: "O campo nome é obrigatório",
-                    validate: {
-                        minLength: (value) => value.length >= 5 || "O campo nome precisa ter pelo menos 5 caracteres",
-                        maxLength: (value) => value.length <= 50 || "O campo nome pode ter até 50 caracteres",
-                    },
-                })} />
+
+                <label className="container-label" htmlFor="fornecedores">Fornecedor</label>
+                <select className="container-input" name="fornecedores" {...register("fornecedor", {
+                    required: "O campo fornecedor é obrigatório"
+                })}>
+                    {fornecedores.map(fornecedor => (
+                        <option value={fornecedor.nome} key={fornecedor.id}>{fornecedor.nome}</option>
+                    ))}
+                </select>
 
                 <div className="container-error">
-                    {errors.nome?.message && (
-                        <div>{errors.nome.message}</div>
+                    {errors.fornecedor?.message && (
+                        <div>{errors.fornecedor.message}</div>
                     )}
                 </div>
-
 
                 <label className="container-label" htmlFor="email">Email</label>
                 <input className="container-input" placeholder='Email' size={30} {...register('email', {
