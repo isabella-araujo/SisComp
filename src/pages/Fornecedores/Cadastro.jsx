@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { alterarFornecedor, excluirFornecedor, inserirFornecedor, obterFornecedor } from "./infra/fornecedores";
 
-
-// add cnpj e razao social
 export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
     const { register, handleSubmit, formState: { errors, isSubmitted }, reset, setValue } = useForm();
 

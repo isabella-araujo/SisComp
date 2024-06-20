@@ -3,10 +3,13 @@ import { useForm } from "react-hook-form";
 import { alterarCotacao, excluirCotacao, inserirCotacao, obterCotacao } from "./infra/cotacoes";
 import { regexPreco } from "../../assets/Regex";
 import { listarProdutos } from "../Produtos/infra/produtos";
+import { listarFornecedores } from "../Fornecedores/infra/fornecedores";
+
 
 export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
     const { register, handleSubmit, formState: { errors, isSubmitted }, reset, setValue } = useForm();
     const [produtos, setProdutos] = useState([]);
+    const [fornecedores, setFornecedores] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -15,12 +18,15 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
                 setValue("produto", cotacao.produto);
                 setValue("preco", cotacao.preco);
                 setValue("dataCompra", cotacao.dataCompra);
+                setValue("fornecedor", cotacao.fornecedor);
             } else {
                 reset();
             }
 
             const produtos = await listarProdutos();
             setProdutos(produtos);
+            const fornecedores = await listarFornecedores();
+            setFornecedores(fornecedores);
         }
 
         fetchData();
@@ -48,10 +54,19 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
 
                 <label className="container-label" htmlFor="produtos">Escolha um produto:</label>
                 <select className="container-input" name="produtos" {...register("produto", {
-                    required: "O campo fornecedor é obrigatório"
+                    required: "O campo produto é obrigatório"
                 })}>
                     {produtos.map(produto => (
                         <option value={produto.nome} key={produto.id}>{produto.nome}</option>
+                    ))}
+                </select>
+
+                <label className="container-label" htmlFor="fornecedores">Fornecedor</label>
+                <select className="container-input" name="fornecedores" {...register("fornecedor", {
+                    required: "O campo fornecedor é obrigatório"
+                })}>
+                    {fornecedores.map(fornecedor => (
+                        <option value={fornecedor.nome} key={fornecedor.id}>{fornecedor.nome}</option>
                     ))}
                 </select>
 

@@ -12,7 +12,7 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
         async function fetchData() {
             if (idEmEdicao && !isSubmitted) {
                 const contato = await obterContato(idEmEdicao);
-                setValue("nome", contato.nome);
+                setValue("fornecedor", contato.fornecedor);
                 setValue("email", contato.email);
                 setValue("fone", contato.fone);
             } else {
@@ -54,12 +54,6 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
                         <option value={fornecedor.nome} key={fornecedor.id}>{fornecedor.nome}</option>
                     ))}
                 </select>
-
-                <div className="container-error">
-                    {errors.fornecedor?.message && (
-                        <div>{errors.fornecedor.message}</div>
-                    )}
-                </div>
 
                 <label className="container-label" htmlFor="email">Email</label>
                 <input className="container-input" placeholder='Email' size={30} {...register('email', {
