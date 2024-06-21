@@ -1,5 +1,4 @@
 import DataTable from 'react-data-table-component';
-import { IoSearch } from "react-icons/io5";
 
 export default function ListaCotacoes({ cotacoes = [], setIdEmEdicao }) {
 
@@ -8,6 +7,11 @@ export default function ListaCotacoes({ cotacoes = [], setIdEmEdicao }) {
             name: 'Produto',
             selector: row => row.produto,
             sortable: true,
+        },
+        {
+            name: 'Fornecedor',
+            selector: row => row.fornecedor,
+            sortable: true
         },
         {
             name: 'Preço',

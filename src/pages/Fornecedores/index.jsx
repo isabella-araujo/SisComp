@@ -17,8 +17,8 @@ export default function Fornecedores() {
     }, [idEmEdicao]);
 
     return (
-        <div className="flex flex-col gap-2 px-5">
-            <h3 className="py-5 text-center text-6xl font-bold text-gray-600">Fornecedores</h3>
+        <div className="flex flex-col gap-2 px-5 lg:px-10 md:px-5">
+            <h3 className="titulo">Fornecedores</h3>
             <Cadastro idEmEdicao={idEmEdicao} setIdEmEdicao={setIdEmEdicao} />
             <ListaCotacaos fornecedores={fornecedores} setIdEmEdicao={setIdEmEdicao} />
         </div>

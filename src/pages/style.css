@@ -8,10 +8,17 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(202, 170, 170, 0.06);
 }
 
-.container-label {
+.container-label, .titulo {
+    padding: 0 5px;
     font-weight: bold;
     font-size: 1rem;
     color: #4a5568;
+}
+
+.titulo {
+    padding: 10px 0;
+    font-size: 2rem;
+    text-align: center;
 }
 
 .container-input {
@@ -51,17 +58,36 @@ table {
     border-collapse: collapse;
     border-radius: 5px;
     overflow-x: auto;
-  }
+}
   
-  tr:nth-child(even) {
+tr:nth-child(even) {
     background-color: #d4d4d4;
-  }
+}
   
-  th, td {
+th, td {
     padding: 5px 10px;
-  }
+}
   
-  .table-header {
+.table-header {
     color: white;
     background-color: #6c886c;
-  }
+}
+
+@media (min-width: 576px){
+
+}
+
+@media (min-width: 768px){
+    .titulo {
+        font-size: 2.3rem;
+    }
+}
+
+@media (min-width: 1200px){
+    
+
+}
+
+@media (min-width: 1400px){
+
+}

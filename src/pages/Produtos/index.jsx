@@ -17,8 +17,8 @@ export default function Produtos() {
     }, [idEmEdicao]);
 
     return (
-        <div className="flex flex-col gap-2 px-5">
-            <h3 className="py-5 text-center text-6xl font-bold text-gray-600">Produtos</h3>
+        <div className="flex flex-col gap-2 px-5 lg:px-10 md:px-5">
+            <h3 className="titulo">Produtos</h3>
             <Cadastro idEmEdicao={idEmEdicao} setIdEmEdicao={setIdEmEdicao} />
             <ListaProdutos produtos={produtos} setIdEmEdicao={setIdEmEdicao} />
         </div>
