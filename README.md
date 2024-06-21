@@ -1,6 +1,6 @@
 # Sistema de Compras
 
-## Indice 
+<h3>Indice</h3>
 * [Definição de Projeto](#definicao-projeto)
 * [Funcionalidades](#funcionalidades)
 * [Acesso ao Projeto](#acesso)
