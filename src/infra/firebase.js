@@ -7,12 +7,12 @@ import { getFirestore } from "firebase/firestore"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDpFWnbBVDnLDuJXqhOSJdUIYMbGvsIuyU",
-  authDomain: "sistema-de-compras-43166.firebaseapp.com",
-  projectId: "sistema-de-compras-43166",
-  storageBucket: "sistema-de-compras-43166.appspot.com",
-  messagingSenderId: "78968890548",
-  appId: "1:78968890548:web:c59f8d8b7832bd81e923e1"
+  apiKey: "AIzaSyBEfIwiUCPUX5C0trZ7RtjM-73av74sxhI",
+  authDomain: "siscomp-901d2.firebaseapp.com",
+  projectId: "siscomp-901d2",
+  storageBucket: "siscomp-901d2.appspot.com",
+  messagingSenderId: "687603179990",
+  appId: "1:687603179990:web:c2697a5e9d88f17422c477"
 };
 
 // Initialize Firebase

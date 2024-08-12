@@ -29,11 +29,6 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
         reset();
     }
 
-    async function handleExcluir() {
-        await excluirProduto(idEmEdicao);
-        setIdEmEdicao("");
-    }
-
     return (
         <div>
             <form className="container-cadastro" onSubmit={handleSubmit(submeterDados)}>
@@ -54,7 +49,6 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
 
                 <div className="container-buttons">
                     <input type="submit" value="Salvar" />
-                    <input type="button" value="Excluir" onClick={handleExcluir} />
                 </div>
             </form>
         </div>

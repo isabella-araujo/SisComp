@@ -1,78 +1,193 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { alterarFornecedor, excluirFornecedor, inserirFornecedor, obterFornecedor } from "./infra/fornecedores";
+import { useEffect, useState } from "react";
+import Input from "../../components/Input";
+import { alterarFornecedor, inserirFornecedor, obterFornecedor } from "./infra/fornecedores";
+import obterEnderecoPorCep from "../../infra/viacep";
+import ContainerCadastro from "../../components/ContainerCadastro";
+import IconButton from "../../components/IconButton";
+import { FaSearch } from "react-icons/fa";
+import "./../style.css"
+import Button from "../../components/Button";
+import { validarCampos } from "./infra/validar";
+import Erro from "../../components/Erro";
+import Alerta from "../../components/Alerta";
 
 export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
-    const { register, handleSubmit, formState: { errors, isSubmitted }, reset, setValue } = useForm();
+    const [fornecedor, setFornecedor] = useState({ nome: "", cnpj: "", endereco: { cep: '' } });
+    const [loading, setLoading] = useState(false);
+    const [erros, setErros] = useState({ nome: '', cnpj: '', endereco: { cep: '', uf: '' } });
 
     useEffect(() => {
         async function fetchData() {
-            if (idEmEdicao && !isSubmitted) {
+            if (idEmEdicao) {
                 const fornecedor = await obterFornecedor(idEmEdicao);
-                setValue("nome", fornecedor.nome);
-                setValue("cnpj", fornecedor.cnpj);
+                setFornecedor({ nome: fornecedor.nome, cnpj: fornecedor.cnpj, endereco: { cep: fornecedor.endereco.cep } })
             } else {
-                reset();
+                setFornecedor({ nome: "", cnpj: "", endereco: {} });
             }
         }
 
         fetchData();
     }, [idEmEdicao]);
 
-    async function submeterDados(dados) {
-        if(idEmEdicao) {
-            await alterarFornecedor({...dados, id: idEmEdicao});
-            setIdEmEdicao('');
-        } else {
-            let id = await inserirFornecedor(dados);
-            setIdEmEdicao(id);
+    async function handleSubmit(e) {
+        e.preventDefault();
+        let valido = validarCampos(setErros, fornecedor);
+
+        if (valido) {
+            setLoading(true);
+
+            try {
+                if (idEmEdicao) {
+                    await alterarFornecedor({ ...fornecedor, id: idEmEdicao });
+                    setIdEmEdicao('');
+                } else {
+                    const id = await inserirFornecedor(fornecedor);
+                    setIdEmEdicao(id);
+                }
+            } catch (error) {
+                console.error('Erro ao salvar fornecedor:', error);
+            } finally {
+                setLoading(false);
+            }
         }
-        reset();
     }
 
-    async function handleExcluir() {
-        await excluirFornecedor(idEmEdicao);
-        setIdEmEdicao("");
+    async function obterEndereco() {
+        let endCep = {};
+        setLoading(true);
+
+        if (fornecedor.endereco.cep.length >= 8 && fornecedor.endereco.cep.length <= 9) {
+            setErros({
+                ...erros,
+                endereco: { cep: '' }
+            });
+
+            try {
+                endCep = await obterEnderecoPorCep(fornecedor.endereco.cep);
+
+                setFornecedor({
+                    ...fornecedor,
+                    endereco: { ...endCep, cep: fornecedor.endereco.cep }
+                });
+            } catch (error) {
+                console.error("Endereço não encontrado", error);
+
+                setErros({
+                    ...erros,
+                    endereco: { cep: 'Endereço não encontrado. Verifique o CEP.' }
+                });
+            } finally {
+                setLoading(false);
+            }
+        } else {
+            setLoading(false);
+            setErros({
+                ...erros,
+                endereco: { cep: 'CEP inválido.' }
+            });
+        }
+    }
+
+    function handleChangeCep(e) {
+        const value = e.target.value;
+
+        setFornecedor({ ...fornecedor, endereco: { ...fornecedor.endereco, cep: value } });
+
+        value.length >= 8 && value.length <= 9 ? erros.endereco.cep = "" : erros.endereco.cep = 'O CEP precisa ter entre 8 e 9 caracteres.';
+    }
+
+    function handleChangeNome(e) {
+        const value = e.target.value;
+
+        setFornecedor({
+            ...fornecedor, nome: value
+        });
+
+        value.length >= 4 && value.length <= 30 ? erros.nome = '' : erros.nome = 'O nome precisa ter entre 4 e 30 caracteres.';
+    }
+
+    function handleChangeCnpj(e) {
+        const value = e.target.value;
+
+        setFornecedor({
+            ...fornecedor, cnpj: value
+        });
+
+        value.length === 18 ? erros.cnpj = '' : erros.cnpj = 'O CNPJ precisa ter 18 caracteres.';
     }
 
     return (
-        <div>
-            <form className="container-cadastro" onSubmit={handleSubmit(submeterDados)}>
-            <label className="container-label" htmlFor="nome">Nome</label>
-                <input className="container-input" placeholder='Nome' size={50} {...register('nome', {
-                    required: "O campo nome é obrigatório",
-                    validate: {
-                        minLength: (value) => value.length >= 5 || "O campo nome precisa ter pelo menos 5 caracteres",
-                        maxLength: (value) => value.length <= 50 || "O campo nome pode ter até 50 caracteres",
-                    },
-                })} />
+        <>
+            <ContainerCadastro>
+                <Input
+                    name="nome"
+                    type="text"
+                    value={fornecedor.nome}
+                    placeholder="Nome do Fornecedor"
+                    maxlength="30" 
+                    size="4"
+                    onChange={handleChangeNome}
+                />
+                {erros.nome && <Erro>{erros.nome}</Erro>}
 
-                <div className="container-error">
-                    {errors.nome?.message && (
-                        <div>{errors.nome.message}</div>
-                    )}
+                <Input
+                    name="cnpj"
+                    type="text"
+                    value={fornecedor.cnpj}
+                    placeholder="00.000.000/0000-00"
+                    maxlength="18" 
+                    size="18"
+                    onChange={handleChangeCnpj}
+                />
+                {erros.cnpj && <Erro>{erros.cnpj}</Erro>}
+                
+                <div className="container-cep">
+                    <Input
+                        name="cep"
+                        type="text"
+                        value={fornecedor.endereco.cep}
+                        placeholder="00000-000"
+                        maxlength="9" 
+                        size="8"
+                        onChange={handleChangeCep}
+                    />
+                    <IconButton onClick={obterEndereco}>
+                        <FaSearch />
+                    </IconButton>
                 </div>
+                {erros.endereco.cep && <Erro>{erros.endereco.cep}</Erro>}
 
-                <label className="container-label" htmlFor="cnpj">CNPJ</label>
-                <input className="container-input" placeholder='CNPJ' size={18} {...register('cnpj', {
-                    required: "O campo CNPJ é obrigatório",
-                    validate: {
-                        minLength: (value) => value.length >= 14 || "O campo CNPJ precisa ter pelo menos 10 caracteres",
-                        maxLength: (value) => value.length <= 18 || "O campo CNPJ pode ter até 50 caracteres",
-                    },
-                })} />
+                <Input
+                    name="logradouro"
+                    type="text"
+                    value={fornecedor.endereco?.logradouro || ''}
+                    placeholder="Logradouro"
+                    disabled
+                />
 
-                <div className="container-error">
-                    {errors.cnpj?.message && (
-                        <div>{errors.cnpj.message}</div>
-                    )}
-                </div>
+                <Input
+                    name="bairro"
+                    type="text"
+                    value={fornecedor.endereco?.bairro || ''}
+                    placeholder="Bairro"
+                    disabled
+                />
 
-                <div className="container-buttons">
-                    <input type="submit" value="Salvar" />
-                    <input type="button" value="Excluir" onClick={handleExcluir} />
-                </div>
-            </form>
-        </div>
+                <Input
+                    name="uf"
+                    type="text"
+                    value={fornecedor.endereco?.uf || ''}
+                    placeholder="UF"
+                    disabled
+                />
+
+                {loading && <Alerta>Carregando...</Alerta>}
+
+                <Button onClick={handleSubmit} disabled={loading}>
+                    {loading ? 'Salvando...' : 'Salvar'}
+                </Button>
+                {erros.endereco.uf && <Erro>{erros.endereco.uf}</Erro>}
+            </ContainerCadastro>
+        </>
     );
 }

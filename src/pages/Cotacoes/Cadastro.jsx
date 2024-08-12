@@ -43,11 +43,6 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
         reset();
     }
 
-    async function handleExcluir() {
-        await excluirCotacao(idEmEdicao);
-        setIdEmEdicao("");
-    }
-
     return (
         <div>
             <form className="container-cadastro" onSubmit={handleSubmit(submeterDados)}>
@@ -55,7 +50,10 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
                 <label className="container-label" htmlFor="produtos">Escolha um produto:</label>
                 <select className="container-input" name="produtos" {...register("produto", {
                     required: "O campo produto é obrigatório"
-                })}>
+                })}
+                    defaultValue=""
+                >
+                    <option value="" selected disabled>Selecione um produto...</option>
                     {produtos.map(produto => (
                         <option value={produto.nome} key={produto.id}>{produto.nome}</option>
                     ))}
@@ -64,7 +62,10 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
                 <label className="container-label" htmlFor="fornecedores">Fornecedor</label>
                 <select className="container-input" name="fornecedores" {...register("fornecedor", {
                     required: "O campo fornecedor é obrigatório"
-                })}>
+                })}
+                    defaultValue=""
+                >
+                    <option value="" selected disabled>Selecione um fornecedor...</option>
                     {fornecedores.map(fornecedor => (
                         <option value={fornecedor.nome} key={fornecedor.id}>{fornecedor.nome}</option>
                     ))}
@@ -97,7 +98,6 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
 
                 <div className="container-buttons">
                     <input type="submit" value="Salvar" />
-                    <input type="button" value="Excluir" onClick={handleExcluir} />
                 </div>
             </form>
         </div>

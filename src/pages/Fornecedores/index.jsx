@@ -5,7 +5,7 @@ import Cadastro from "./Cadastro";
 
 export default function Fornecedores() {
     const [fornecedores, setFornecedores] = useState([]);
-    const [idEmEdicao, setIdEmEdicao] = useState('');
+    const [idEmEdicao, setIdEmEdicao] = useState("");
 
     useEffect(() => {
         async function fetchData() {
@@ -14,7 +14,7 @@ export default function Fornecedores() {
         }
 
         fetchData();
-    }, [idEmEdicao]);
+    });
 
     return (
         <div className="flex flex-col gap-2 px-5 lg:px-10 md:px-5">

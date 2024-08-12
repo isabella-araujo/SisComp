@@ -3,8 +3,13 @@ import { FiMenu } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import './css/style.css'
+import { deslogarUsuario } from "../../infra/usuarios";
 
-export default function Navbar() {
+export default function Navbar({logado, setLogado}) {
+    async function handleClick(e){
+        await deslogarUsuario();
+        setLogado(false);
+    }
 
     function openMenu() {
         if(menu.classList.contains('close')) {
@@ -52,7 +57,7 @@ export default function Navbar() {
                             </li>
                         </ul>
                     </nav>
-                    <button id="logout" className="text-lg px-4 py-2 mx-6 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Logout</button>
+                    <button onClick={handleClick} id="logout" className="text-lg px-4 py-2 mx-6 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Logout</button>
                 </div>
             </div>
         </div>

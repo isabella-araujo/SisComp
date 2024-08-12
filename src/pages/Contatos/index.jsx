@@ -15,7 +15,7 @@ export default function Contatos() {
         }
 
         fetchData();
-    }, [idEmEdicao]);
+    });
 
     return(
         <div className="flex flex-col gap-2 px-5 lg:px-10 md:px-5">
