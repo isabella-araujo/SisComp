@@ -15,12 +15,7 @@
 }
 
 .container-logo {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    gap: 18px;
+    display: none;
 }
 
 #icon-menu:hover {
@@ -70,6 +65,10 @@
         align-items: center;
         justify-content: space-between;
         padding: 20px 20px; 
+    }
+
+    .container-mobile {
+        display: none;
     }
 
     .container-logo {

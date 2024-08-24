@@ -1,0 +1,9 @@
+- [ ] criar pagina "Minhas requisições"
+- [ ] criar componente "requisição"
+- [ ] criar componente "cotação"
+- [ ] criar página "lista de requisições"
+- [ ] criar componente "status"
+- [ ] substituir o form por componentes nas paginas: produtos, contatos
+- [ ] adicionar validação de campos na criação da requisição
+- [ ] criar arquivo.js com validações básicas
+- [ ] substituir useState por useReducer no fornecedores, produtos e contatos

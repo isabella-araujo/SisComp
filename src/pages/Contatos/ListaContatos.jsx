@@ -35,10 +35,10 @@ export default function ListaContatos({ contatos = [], setIdEmEdicao }) {
             name: "",
             cell: row => (
                 <div style={{display: 'flex', gap: '10px'}}>
-                    <IconButton onClick={() => handleExcluir(row)}>
+                    <IconButton size='30px' onClick={() => handleExcluir(row)}>
                         <FaTrash /> 
                     </IconButton>
-                    <IconButton onClick={() => handleEditar(row)}>
+                    <IconButton size='30px' onClick={() => handleEditar(row)}>
                         <FaPen />
                     </IconButton>
                 </div>

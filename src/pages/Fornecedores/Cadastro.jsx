@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import Input from "../../components/Input";
 import { alterarFornecedor, inserirFornecedor, obterFornecedor } from "./infra/fornecedores";
 import obterEnderecoPorCep from "../../infra/viacep";
-import ContainerCadastro from "../../components/ContainerCadastro";
+import Container from "../../components/Container";
 import IconButton from "../../components/IconButton";
 import { FaSearch } from "react-icons/fa";
 import "./../style.css"
 import Button from "../../components/Button";
-import { validarCampos } from "./infra/validar";
+import { validarCamposFornecedor } from "./infra/validar";
 import Erro from "../../components/Erro";
 import Alerta from "../../components/Alerta";
 
@@ -31,11 +31,10 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        let valido = validarCampos(setErros, fornecedor);
+        let valido = validarCamposFornecedor(setErros, fornecedor);
 
         if (valido) {
             setLoading(true);
-
             try {
                 if (idEmEdicao) {
                     await alterarFornecedor({ ...fornecedor, id: idEmEdicao });
@@ -53,9 +52,6 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
     }
 
     async function obterEndereco() {
-        let endCep = {};
-        setLoading(true);
-
         if (fornecedor.endereco.cep.length >= 8 && fornecedor.endereco.cep.length <= 9) {
             setErros({
                 ...erros,
@@ -118,13 +114,13 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
 
     return (
         <>
-            <ContainerCadastro>
+            <Container>
                 <Input
                     name="nome"
                     type="text"
                     value={fornecedor.nome}
                     placeholder="Nome do Fornecedor"
-                    maxlength="30" 
+                    maxLength="30" 
                     size="4"
                     onChange={handleChangeNome}
                 />
@@ -135,7 +131,7 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
                     type="text"
                     value={fornecedor.cnpj}
                     placeholder="00.000.000/0000-00"
-                    maxlength="18" 
+                    maxLength="18" 
                     size="18"
                     onChange={handleChangeCnpj}
                 />
@@ -147,7 +143,7 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
                         type="text"
                         value={fornecedor.endereco.cep}
                         placeholder="00000-000"
-                        maxlength="9" 
+                        maxLength="9" 
                         size="8"
                         onChange={handleChangeCep}
                     />
@@ -187,7 +183,7 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
                     {loading ? 'Salvando...' : 'Salvar'}
                 </Button>
                 {erros.endereco.uf && <Erro>{erros.endereco.uf}</Erro>}
-            </ContainerCadastro>
+            </Container>
         </>
     );
 }

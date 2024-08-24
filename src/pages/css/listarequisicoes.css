@@ -1,0 +1,21 @@
+.lista-requisicoes {
+    margin: 5px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.container-requisicoes {
+    display: flex;
+    gap: 10px;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .container-requisicoes {
+        flex-direction: row;
+    }
+}

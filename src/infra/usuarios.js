@@ -41,9 +41,13 @@ export async function criarConta(email, senha) {
 import { signOut } from "firebase/auth";
 
 export async function deslogarUsuario() {
-    signOut(auth).then(() => {
-        console.log("Usuário deslogado com sucesso.");
-      }).catch((error) => {
-        console.log(`${error.code} = ${error.messsage}`);
-      });
-}
+    try {
+      await signOut(auth);  // Aguarda a conclusão do signOut
+      const retorno = { id: null, email: " ", senha: " " };
+      return retorno;
+    } catch (error) {
+      console.log(`${error.code} = ${error.message}`);
+      return null; // Retorna null ou algum outro valor indicativo em caso de erro
+    }
+  }
+  

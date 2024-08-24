@@ -1,4 +1,6 @@
-export function validarCampos(setErros, fornecedor) {
+import obterEnderecoPorCep from "../../../infra/viacep";
+
+export function validarCamposFornecedor(setErros, fornecedor) {
     let valido = true;
     const novosErros = { nome: '', cnpj: '', endereco: { cep: '', uf:'' } };
 
@@ -24,3 +26,24 @@ export function validarCampos(setErros, fornecedor) {
     setErros(novosErros);
     return valido;
 }
+
+// export async function validarEndereco(cep, setErros, erros) {
+//     let endCep = {};
+//     const novosErros = { endereco: { cep: '', uf:'' } };
+
+//     if (cep.length >= 8 && cep.length <= 9) {
+        
+//         try {
+//             endCep = await obterEnderecoPorCep(cep);
+//         } catch (error) {
+//             console.error("Endereço não encontrado:", error);
+//             novosErros.endereco.cep = 'Endereço não encontrado. Verifique o CEP.'
+//         }
+
+//     } else {
+//        novosErros.endereco.cep = 'CEP inválido.' 
+//     }
+
+//     setErros({...erros, novosErros})
+//     return endCep;
+// }

@@ -1,0 +1,42 @@
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-404 {
+    margin: 0 auto;
+    width: 50%;
+}
+
+@media(min-width: 576px) {
+    .container-home {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .img-404 {
+        width: 75%;
+    }
+}
+
+@media(min-width: 768px) {
+    .container-home {
+        gap: 20px;
+    }
+
+    .img-404 {
+        width: 60%;
+    }
+}
+
+@media(min-width: 1024px) {
+    .container-home {
+        gap: 30px;
+    }
+
+    .img-404 {
+        width: 45%;
+    }
+}

@@ -1,0 +1,59 @@
+/* Mobile-first styles */
+
+.requisicao-compra {
+    margin: 5px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.container-requisicao-compra {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.container-cadastro {
+    width: 90%;
+}
+
+.container-cadastro-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.container-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.container-input {
+    height: 35px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    padding: 2px 9px;
+}
+
+/* Tablet and desktop styles */
+
+@media (min-width: 768px) {
+    .requisicao-compra {
+        padding: 20px 50px;
+        /* increased padding for tablet and desktop */
+    }
+
+    .container-requisicao-compra {
+        flex-direction: row;
+        /* switch to horizontal layout on tablet and desktop */
+    }
+}
+
+/* Desktop styles */
+
+@media (min-width: 1200px) {
+    /* add any additional styles for desktop here */
+}
