@@ -33,7 +33,7 @@ export default function RequisicaoAdmin({ requisicao, size }) {
             <div className="container-header">
                 <div className='container-info'>
                     <Title color='#f0f0f0' size='1rem'>ID da Requisição:</Title>
-                    <p>{requisicao.requisicao.id}</p> 
+                    <p>{requisicao.id}</p> 
                 </div>
                 <div className='container-info'>
                     <Title color='#f0f0f0' size='1rem'>Status:</Title>
