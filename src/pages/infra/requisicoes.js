@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, getDocs, getDoc, doc, setDoc, where, query, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, getDocs, doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../infra/firebase";
 
 export async function inserirRequisicao(novaRequisicao) {
@@ -19,5 +19,6 @@ export async function listarRequisicoes() {
     return retorno;
 }
 
-
-// na função de alterar tentar criar campo cotação
+export async function alterarRequisicao(requisicao) {
+    await setDoc(doc(db, "requisições", requisicao.id), requisicao);
+}

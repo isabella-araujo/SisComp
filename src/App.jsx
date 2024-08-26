@@ -2,7 +2,6 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Fornecedores from './pages/Fornecedores'
 import Produtos from './pages/Produtos'
-import Cotacoes from './pages/Cotacoes'
 import Contatos from './pages/Contatos'
 import { useState } from 'react'
 import Login from './pages/Login'
@@ -18,8 +17,8 @@ import ListaRequisicoes from './pages/ListaRequisicoes'
 import MinhasRequisicoes from './pages/MinhasRequisicoes'
 
 function App() {
-  const [usuario, setUsuario] = useState({id: "", email: "", senha: ""});
-  const [admin, setAdmin] = useState(false);
+  const [usuario, setUsuario] = useState({id: "porra", email: "", senha: ""});
+  const [admin, setAdmin] = useState(true);
 
   return (
     <>
@@ -33,7 +32,6 @@ function App() {
               <Route path='/fornecedores' element={<Fornecedores />} />
               <Route path='/contatos' element={<Contatos />}/>
               <Route path='/produtos' element={<Produtos />}/>
-              {/* <Route path='/cotacoes' element={<Cotacoes />}/> */}
               <Route path='/lista-requisicoes' element={<ListaRequisicoes />} />
               <Route path='*' element={<NaoEncontrada />}/>
             </Routes>
@@ -43,7 +41,7 @@ function App() {
         {usuario.id && !admin &&
           <div>
             <UserContext.Provider value={usuario}>
-              <NavBar setUsuario={setUsuario}/>
+              <NavBar setUsuario={setUsuario} />
               <Routes>
                 <Route path='/requisicoes' element={<RequisicaoCompra />}/>
                 <Route index element={<RequisicaoCompra />} />

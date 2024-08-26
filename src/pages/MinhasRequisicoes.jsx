@@ -19,10 +19,10 @@ export default function MinhasRequisicoes() {
 
     return (
         <div className="lista-requisicoes">
-            <Title>Requisições de Compras</Title>
+            <Title>Minhas Requisições</Title>
 
             <div className="container-requisicoes">
-                {requisicoes.map((item) => (<Requisicao requisicao={item} size="86%" />))}
+                {requisicoes.map((item) => (<Requisicao key={item.id} requisicao={item} size="86%" />))}
             </div>
         </div>
     );

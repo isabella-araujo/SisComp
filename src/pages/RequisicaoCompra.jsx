@@ -10,30 +10,25 @@ import './css/requisicaocompra.css'
 import { inserirRequisicao, listarRequisicoes } from "./infra/requisicoes";
 
 export default function RequisicaoCompra() {
-    // pegar todas as requisicoes, usar filter pra criar um array com as requisiçoes com o id do usuario
     const [produtos, setProdutos] = useState([]);
     const [produto, setProduto] = useState({
         id: '',
         nome: ''
     });
-    //const [cotacoes, setCotacoes] = useState([]);
     const usuario = useContext(UserContext);
     const [requisicao, setRequisicao] = useState({
         idUsuario: usuario.id,
         produto: {},
         quantidade: 0,
         observacoes: "",
-        cotacoes: []
+        cotacoes: [null],
     });
     const [requisicoes, setRequisicoes] = useState([]);
-
-    // if requisicao.cotacoes.length === 0 return aberta | else requisicao.cotacoes.length > 0 && < 3 return em cotação | requisicao.cotacoes.length === 3 return cotada
 
     useEffect(() => {
         async function fetchData() {
             const produtos = await listarProdutos();
             setProdutos(produtos);
-            // quando tiver requisicoes no banco de dados chamar ele aqui que nem os produtos
             const requisicoes = await listarRequisicoes();
             const minhasRequisicoes = requisicoes.filter(item =>  item.requisicao.idUsuario === usuario.id);
 
@@ -104,8 +99,6 @@ export default function RequisicaoCompra() {
                     <Button onClick={handleSubmit}>
                         Cadastrar
                     </Button>
-
-                    {/* criar map pra exibir as cotações. na versao admin criar botao para criar cotação que abra um modal */}
                 </Container>
             </div>
         </div>

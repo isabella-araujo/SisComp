@@ -1,8 +1,8 @@
-- [ ] criar pagina "Minhas requisições"
-- [ ] criar componente "requisição"
+- [x] criar pagina "Minhas requisições"
+- [x] criar componente "requisição"
 - [ ] criar componente "cotação"
-- [ ] criar página "lista de requisições"
-- [ ] criar componente "status"
+- [x] criar página "lista de requisições"
+- [x] criar componente "status" (não precisou)
 - [ ] substituir o form por componentes nas paginas: produtos, contatos
 - [ ] adicionar validação de campos na criação da requisição
 - [ ] criar arquivo.js com validações básicas

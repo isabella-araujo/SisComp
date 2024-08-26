@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import Button from './Button';
 import './css/requisicao.css'
 import Title from './Title';
 
-export default function Requisicao({ requisicao, size }) {
+export default function RequisicaoAdmin({ requisicao, size }) {
     const [status, setStatus] = useState('');
+    const dataFormatada = new Date(requisicao.criadaEm.seconds * 1000 + requisicao.criadaEm.nanoseconds / 1e6).toLocaleString();
     const styles = {
         requisicao: {
             width: size ? size : '100%',
@@ -30,8 +32,8 @@ export default function Requisicao({ requisicao, size }) {
         <div style={styles.requisicao} className="requisicao">
             <div className="container-header">
                 <div className='container-info'>
-                    <Title color='#f0f0f0' size='1rem'>ID do Colaborador:</Title>
-                    <p>{requisicao.requisicao.idUsuario}</p>
+                    <Title color='#f0f0f0' size='1rem'>ID da Requisição:</Title>
+                    <p>{requisicao.requisicao.id}</p> 
                 </div>
                 <div className='container-info'>
                     <Title color='#f0f0f0' size='1rem'>Status:</Title>
@@ -39,6 +41,14 @@ export default function Requisicao({ requisicao, size }) {
                 </div>
             </div>
             <div className="container-section">
+                <div className='container-info'>
+                    <Title size='1rem'>ID do Colaborador:</Title>
+                    <p>{requisicao.requisicao.idUsuario}</p> 
+                </div>
+                <div className='container-info'>
+                    <Title size='1rem'>Data de Criação:</Title>
+                    <p>{dataFormatada}</p>
+                </div>
                 <div className='container-info'>
                     <Title size='1rem'>Produto:</Title>
                     <p>{requisicao.requisicao.produto.nome}</p>
@@ -51,6 +61,7 @@ export default function Requisicao({ requisicao, size }) {
                     <Title size='1rem'>Observações:</Title>
                     <p>{requisicao.requisicao.observacoes}</p>
                 </div>
+                <Button size='40%'>Adicionar Cotação</Button>
             </div>
         </div>
     );

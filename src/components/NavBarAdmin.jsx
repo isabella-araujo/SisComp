@@ -42,9 +42,6 @@ export default function NavBarAdmin({setAdmin}) {
                                 <Link to='/produtos'>Produtos</Link>
                             </li>
                             <li>
-                                <Link to='/cotacoes'>Cotações</Link>
-                            </li>
-                            <li>
                                 <Link to='/contatos'>Contatos</Link>
                             </li>
                             <li>

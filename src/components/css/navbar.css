@@ -30,6 +30,11 @@
     display: none;
 }
 
+#menu {
+    flex-direction: column;
+    align-items: center;
+}
+
 .container-links {
     color: #dbecdb;
     font-size: 18px;
