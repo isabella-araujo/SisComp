@@ -17,8 +17,8 @@ import ListaRequisicoes from './pages/ListaRequisicoes'
 import MinhasRequisicoes from './pages/MinhasRequisicoes'
 
 function App() {
-  const [usuario, setUsuario] = useState({id: "porra", email: "", senha: ""});
-  const [admin, setAdmin] = useState(true);
+  const [usuario, setUsuario] = useState({id: "", email: "", senha: ""});
+  const [admin, setAdmin] = useState(false);
 
   return (
     <>
