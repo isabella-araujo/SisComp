@@ -52,6 +52,7 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
     }
 
     async function obterEndereco() {
+        let endCep;
         if (fornecedor.endereco.cep.length >= 8 && fornecedor.endereco.cep.length <= 9) {
             setErros({
                 ...erros,

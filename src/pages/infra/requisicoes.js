@@ -1,11 +1,11 @@
-import { addDoc, collection, getDocs, doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, getDocs, doc, setDoc, serverTimestamp, deleteDoc } from "firebase/firestore";
 import { db } from "../../infra/firebase";
 
 export async function inserirRequisicao(novaRequisicao) {
-    const docRef = await addDoc(collection(db, "requisições"), {
-        requisicao: novaRequisicao,
-        criadaEm: serverTimestamp()
-    });
+    novaRequisicao.criadaEm = serverTimestamp();
+
+    const docRef = await addDoc(collection(db, "requisições"), novaRequisicao);
+
     return docRef.id;
 }
 
@@ -21,4 +21,8 @@ export async function listarRequisicoes() {
 
 export async function alterarRequisicao(requisicao) {
     await setDoc(doc(db, "requisições", requisicao.id), requisicao);
+}
+
+export async function excluirRequisicao(id) {
+    await deleteDoc(doc(db, "requisições", id));
 }

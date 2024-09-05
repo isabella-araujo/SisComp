@@ -6,7 +6,7 @@ import './css/perfil.css'
 export default function Perfil({ usuario, width }) {
     const styles = {
         container: {
-            width: width ?  {width} : auto,
+            width: width ?  `${width}` : 'auto',
 
         }
     }

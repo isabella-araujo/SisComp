@@ -22,8 +22,16 @@ export async function obterCotacao(id) {
 }
 
 export async function excluirCotacao(id) {
-    await deleteDoc(doc(db, "cotacoes", id));
+    try {
+        await deleteDoc(doc(db, "cotacoes", id));
+    } catch(error) {
+        console.error("Erro ao excluir cotação", error);
+    }
 }
+export async function excluirContato(id) {
+    await deleteDoc(doc(db, "contatos", id));
+}
+
 
 export async function alterarCotacao(cotacao) {
     await setDoc(doc(db, "cotacoes", cotacao.id), cotacao);

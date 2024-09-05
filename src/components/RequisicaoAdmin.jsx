@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import Button from './Button';
 import './css/requisicao.css'
 import Title from './Title';
+import { excluirCotacao } from '../pages/infra/cotacoes';
+import { excluirRequisicao } from '../pages/infra/requisicoes';
 
-export default function RequisicaoAdmin({ requisicao, size }) {
+export default function RequisicaoAdmin({ requisicao, setRequisicao, size, children }) {
     const [status, setStatus] = useState('');
     const dataFormatada = new Date(requisicao.criadaEm.seconds * 1000 + requisicao.criadaEm.nanoseconds / 1e6).toLocaleString();
     const styles = {
@@ -18,13 +20,19 @@ export default function RequisicaoAdmin({ requisicao, size }) {
             status = "Cotada";
         } else if (requisicao.cotacoes?.length >= 1 && requisicao.cotacoes?.length <= 3) {
             status = "Em cotação";
-        } else {
+        } else if(requisicao.cotacoes?.length === 0) {
             status = "Aberta";
         }
         setStatus(status);
     }
 
+    async function handleExcluir(id) {
+        console.log(id)
+        await excluirRequisicao(id);
+    }
+
     useEffect(() => {
+        console.log(requisicao);
         definirStatus();
     }, [requisicao]);
 
@@ -43,7 +51,7 @@ export default function RequisicaoAdmin({ requisicao, size }) {
             <div className="container-section">
                 <div className='container-info'>
                     <Title size='1rem'>ID do Colaborador:</Title>
-                    <p>{requisicao.requisicao.idUsuario}</p> 
+                    <p>{requisicao.idUsuario}</p> 
                 </div>
                 <div className='container-info'>
                     <Title size='1rem'>Data de Criação:</Title>
@@ -51,17 +59,19 @@ export default function RequisicaoAdmin({ requisicao, size }) {
                 </div>
                 <div className='container-info'>
                     <Title size='1rem'>Produto:</Title>
-                    <p>{requisicao.requisicao.produto.nome}</p>
+                    <p>{requisicao.produto.nome}</p>
                 </div>
                 <div className='container-info'>
                     <Title size='1rem'>Quantidade:</Title>
-                    <p>{requisicao.requisicao.quantidade}</p>
+                    <p>{requisicao.quantidade}</p>
                 </div>
                 <div className='container-info-obse'>
                     <Title size='1rem'>Observações:</Title>
-                    <p>{requisicao.requisicao.observacoes}</p>
+                    <p>{requisicao.observacoes}</p>
                 </div>
-                <Button size='40%'>Adicionar Cotação</Button>
+                <Button onClick={() => setRequisicao(requisicao)} size='40%'>Adicionar Cotação</Button>
+                <Button onClick={() => handleExcluir(requisicao.id)} size='40%'>Excluir Requisição</Button>
+                {children}
             </div>
         </div>
     );

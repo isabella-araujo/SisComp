@@ -24,14 +24,14 @@ export async function criarConta(email, senha) {
     let retorno = new Object();
     await createUserWithEmailAndPassword(auth, email, senha)
         .then((userCredential) => {
-        retorno.id = userCredential.user.uid;
-        retorno.email = email;
-        retorno.senha = senha;
-    })
-    .catch((error) => {
-        console.log(`${error.code} = ${error.messsage}`)
-        retorno.erro = "Login Inválido";
-    });
+            retorno.id = userCredential.user.uid;
+            retorno.email = email;
+            retorno.senha = senha;
+        })
+        .catch((error) => {
+            console.log(`${error.code} = ${error.messsage}`)
+            retorno.erro = "Login Inválido";
+        });
 
     return retorno;
 }
@@ -42,12 +42,11 @@ import { signOut } from "firebase/auth";
 
 export async function deslogarUsuario() {
     try {
-      await signOut(auth);  // Aguarda a conclusão do signOut
-      const retorno = { id: null, email: " ", senha: " " };
-      return retorno;
+        await signOut(auth); 
+        const retorno = { id: null, email: " ", senha: " " };
+        return retorno;
     } catch (error) {
-      console.log(`${error.code} = ${error.message}`);
-      return null; // Retorna null ou algum outro valor indicativo em caso de erro
+        console.log(`${error.code} = ${error.message}`);
+        return null;
     }
-  }
-  
+}

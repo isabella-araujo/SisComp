@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './css/requisicao.css'
 import Title from './Title';
+import Cotacao from './Cotacao';
 
 export default function Requisicao({ requisicao, size }) {
     const [status, setStatus] = useState('');
@@ -31,7 +32,7 @@ export default function Requisicao({ requisicao, size }) {
             <div className="container-header">
                 <div className='container-info'>
                     <Title color='#f0f0f0' size='1rem'>ID do Colaborador:</Title>
-                    <p>{requisicao.requisicao.idUsuario}</p>
+                    <p>{requisicao.idUsuario}</p>
                 </div>
                 <div className='container-info'>
                     <Title color='#f0f0f0' size='1rem'>Status:</Title>
@@ -41,17 +42,22 @@ export default function Requisicao({ requisicao, size }) {
             <div className="container-section">
                 <div className='container-info'>
                     <Title size='1rem'>Produto:</Title>
-                    <p>{requisicao.requisicao.produto.nome}</p>
+                    <p>{requisicao.produto.nome}</p>
                 </div>
                 <div className='container-info'>
                     <Title size='1rem'>Quantidade:</Title>
-                    <p>{requisicao.requisicao.quantidade}</p>
+                    <p>{requisicao.quantidade}</p>
                 </div>
                 <div className='container-info-obse'>
                     <Title size='1rem'>Observações:</Title>
-                    <p>{requisicao.requisicao.observacoes}</p>
+                    <p>{requisicao.observacoes}</p>
                 </div>
             </div>
+            { requisicao.cotacoes.length > 0 &&
+                requisicao.cotacoes.map((cotacao, index) => (
+                    <Cotacao key={index} cotacao={cotacao} />
+                ))
+            }
         </div>
     );
 }

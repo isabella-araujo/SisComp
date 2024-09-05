@@ -8,8 +8,10 @@ import Title from "../components/Title";
 import Perfil from "../components/Perfil";
 import './css/requisicaocompra.css'
 import { inserirRequisicao, listarRequisicoes } from "./infra/requisicoes";
+import Alerta from "../components/Alerta";
+import Erro from "../components/Erro";
 
-export default function RequisicaoCompra() {
+export default function CadastroRequisicaoCompra() {
     const [produtos, setProdutos] = useState([]);
     const [produto, setProduto] = useState({
         id: '',
@@ -21,26 +23,30 @@ export default function RequisicaoCompra() {
         produto: {},
         quantidade: 0,
         observacoes: "",
-        cotacoes: [null],
+        cotacoes: [],
     });
-    const [requisicoes, setRequisicoes] = useState([]);
+    const [mensagem, setMensagem] = useState('');
+    const [erro, setErro] = useState('');
 
     useEffect(() => {
         async function fetchData() {
             const produtos = await listarProdutos();
             setProdutos(produtos);
-            const requisicoes = await listarRequisicoes();
-            const minhasRequisicoes = requisicoes.filter(item =>  item.requisicao.idUsuario === usuario.id);
-
-            setRequisicoes(minhasRequisicoes);
         }
 
         fetchData()
     }, []);
 
     async function handleSubmit() {
-        await inserirRequisicao(requisicao, usuario);
-        console.log(requisicao)
+        const id = await inserirRequisicao(requisicao, usuario);
+        if (id) {
+            setMensagem('Requisição cadastrada com sucesso!');
+            setErro('');
+        } else {
+            setErro('Erro ao cadastrar a requisição');
+            setMensagem('');
+        }
+        console.log(requisicao);
     }
 
 
@@ -55,13 +61,12 @@ export default function RequisicaoCompra() {
         }
     }
 
-
     return (
         <div className="requisicao-compra">
             <Title>Requisições de Compras</Title>
             <div className="container-requisicao-compra">
-                <Perfil width='90%' usuario={usuario} />
-                <Container width='90%'>
+                <Perfil usuario={usuario} />
+                <Container>
                     <div className="container-cadastro-header">
                         <div className="container-status">
                             <Title size='1rem'>ID do Colaborador:</Title>
@@ -99,6 +104,8 @@ export default function RequisicaoCompra() {
                     <Button onClick={handleSubmit}>
                         Cadastrar
                     </Button>
+                    {mensagem && <Alerta>{mensagem}</Alerta>}
+                    {erro && <Erro>{erro}</Erro>}
                 </Container>
             </div>
         </div>

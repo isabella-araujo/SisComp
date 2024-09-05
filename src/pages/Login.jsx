@@ -1,4 +1,3 @@
-import { FaCartShopping } from "react-icons/fa6";
 import './css/login.css'
 import { logarUsuario } from "../infra/usuarios";
 import { Link, useNavigate } from "react-router-dom";

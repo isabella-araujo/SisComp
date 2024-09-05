@@ -4,27 +4,22 @@ import { alterarCotacao, excluirCotacao, inserirCotacao, obterCotacao } from "./
 import { regexPreco } from "../../assets/Regex";
 import { listarProdutos } from "../Produtos/infra/produtos";
 import { listarFornecedores } from "../Fornecedores/infra/fornecedores";
+import { alterarRequisicao } from "../infra/requisicoes";
+import Title from "../../components/Title";
 
-
-export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
+export default function Cadastro({ idEmEdicao, setIdEmEdicao, setRequisicao, requisicao }) {
     const { register, handleSubmit, formState: { errors, isSubmitted }, reset, setValue } = useForm();
-    const [produtos, setProdutos] = useState([]);
     const [fornecedores, setFornecedores] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
             if (idEmEdicao && !isSubmitted) {
                 const cotacao = await obterCotacao(idEmEdicao);
-                setValue("produto", cotacao.produto);
                 setValue("preco", cotacao.preco);
-                setValue("dataCompra", cotacao.dataCompra);
                 setValue("fornecedor", cotacao.fornecedor);
             } else {
                 reset();
             }
-
-            const produtos = await listarProdutos();
-            setProdutos(produtos);
             const fornecedores = await listarFornecedores();
             setFornecedores(fornecedores);
         }
@@ -33,12 +28,14 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
     }, [idEmEdicao]);
 
     async function submeterDados(dados) {
-        if(idEmEdicao) {
-            await alterarCotacao({...dados, id: idEmEdicao});
+        if (idEmEdicao) {
+            await alterarCotacao({ ...dados, id: idEmEdicao });
             setIdEmEdicao('');
+            setRequisicao({});
         } else {
+            console.log(dados)
             let id = await inserirCotacao(dados);
-            setIdEmEdicao(id);
+            await alterarRequisicao({ ...requisicao, cotacoes: [...(requisicao.cotacoes || []), dados] });
         }
         reset();
     }
@@ -46,19 +43,7 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
     return (
         <div>
             <form className="container-cadastro" onSubmit={handleSubmit(submeterDados)}>
-
-                <label className="container-label" htmlFor="produtos">Escolha um produto:</label>
-                <select className="container-input" name="produtos" {...register("produto", {
-                    required: "O campo produto é obrigatório"
-                })}
-                    defaultValue=""
-                >
-                    <option value="" selected disabled>Selecione um produto...</option>
-                    {produtos.map(produto => (
-                        <option value={produto.nome} key={produto.id}>{produto.nome}</option>
-                    ))}
-                </select>
-
+                <Title size='1.5rem'>Cotando requisição: {requisicao.id}</Title>
                 <label className="container-label" htmlFor="fornecedores">Fornecedor</label>
                 <select className="container-input" name="fornecedores" {...register("fornecedor", {
                     required: "O campo fornecedor é obrigatório"
@@ -82,17 +67,6 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
                 <div className="container-error">
                     {errors.preco?.message && (
                         <div>{errors.preco.message}</div>
-                    )}
-                </div>
-
-                <label className="container-label" htmlFor="dataCompra">Data da Compra</label>
-                <input type="date" className="container-input" {...register('dataCompra', {
-                    required: "O campo data da compra é obrigatório",
-                })} />
-
-                <div className="container-error">
-                    {errors.dataCompra?.message && (
-                        <div>{errors.dataCompra.message}</div>
                     )}
                 </div>
 

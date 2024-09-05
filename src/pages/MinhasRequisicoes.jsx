@@ -10,9 +10,9 @@ export default function MinhasRequisicoes() {
     useEffect(() => {
         async function fetchData() {
             const requisicoes = await listarRequisicoes();
-            const minhasRequisicoes = requisicoes.filter(item =>  item.requisicao.idUsuario === usuario.id);
-
-            setRequisicoes(minhasRequisicoes);
+            const minhasRequisicoes = requisicoes.filter(item =>  item.idUsuario === usuario.id);
+            const requiOrdernadas = requisicoes.sort((a, b) => new Date(a.criadaEm.seconds * 1000 + a.criadaEm.nanoseconds / 1e6) - new Date(b.criadaEm.seconds * 1000 + b.criadaEm.nanoseconds / 1e6));
+            setRequisicoes(requiOrdernadas);
         }
         fetchData()
     }, []);

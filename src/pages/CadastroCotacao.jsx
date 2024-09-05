@@ -5,6 +5,7 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import { inserirCotacao } from "./infra/cotacoes";
 import { alterarRequisicao } from "./infra/requisicoes";
+import Modal from "../components/Modal";
 
 export default function CadastroCotacao({ requisicao, idRequisicao }) {
     const [cotacao, setCotacao] = useState({
@@ -26,7 +27,8 @@ export default function CadastroCotacao({ requisicao, idRequisicao }) {
     }
 
     return (
-        <div className="cadastro-cotacao">
+        <Modal>
+            <div className="cadastro-cotacao">
             <Title>Cotação</Title>
             <div>
                 <Title size='1rem'>ID da Requisição:</Title>
@@ -47,6 +49,7 @@ export default function CadastroCotacao({ requisicao, idRequisicao }) {
                     <Button size='40%' onClick={handleSubmit}>Salvar</Button>
                 </Container>
             </div>
-        </div>
+            </div>
+        </Modal>
     );
 }
