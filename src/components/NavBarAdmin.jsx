@@ -47,6 +47,9 @@ export default function NavBarAdmin({setAdmin}) {
                             <li>
                                 <Link to='/lista-requisicoes'>Requisições</Link>
                             </li>
+                            <li>
+                                <Link to='/colaboradores'>Colaboradores</Link>
+                            </li>
                         </ul>
                     </nav>
                     <ButtonOutlined onClick={handleClick}>Logout</ButtonOutlined>

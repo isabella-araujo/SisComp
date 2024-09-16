@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import './css/requisicao.css'
 import Title from './Title';
 import Cotacao from './Cotacao';
+import Button from './Button';
+import { excluirRequisicao } from '../pages/infra/requisicoes';
 
 export default function Requisicao({ requisicao, size }) {
     const [status, setStatus] = useState('');
@@ -23,6 +25,11 @@ export default function Requisicao({ requisicao, size }) {
         setStatus(status);
     }
 
+    async function handleExcluir(id) {
+        console.log(id)
+        await excluirRequisicao(id);
+    }
+
     useEffect(() => {
         definirStatus();
     }, [requisicao]);
@@ -42,7 +49,7 @@ export default function Requisicao({ requisicao, size }) {
             <div className="container-section">
                 <div className='container-info'>
                     <Title size='1rem'>Produto:</Title>
-                    <p>{requisicao.produto.nome}</p>
+                    <p>{requisicao.produto?.nome}</p>
                 </div>
                 <div className='container-info'>
                     <Title size='1rem'>Quantidade:</Title>
@@ -52,12 +59,13 @@ export default function Requisicao({ requisicao, size }) {
                     <Title size='1rem'>Observações:</Title>
                     <p>{requisicao.observacoes}</p>
                 </div>
+                <Button onClick={() => handleExcluir(requisicao.id)} size='40%'>Excluir Requisição</Button>
+                {requisicao.cotacoes?.length > 0 &&
+                    requisicao.cotacoes.map((cotacao, index) => (
+                        <Cotacao key={index} cotacao={cotacao} />
+                    ))
+                }
             </div>
-            { requisicao.cotacoes.length > 0 &&
-                requisicao.cotacoes.map((cotacao, index) => (
-                    <Cotacao key={index} cotacao={cotacao} />
-                ))
-            }
         </div>
     );
 }

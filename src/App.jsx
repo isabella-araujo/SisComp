@@ -15,6 +15,7 @@ import NaoEncontrada from './pages/NaoEncontrada'
 import Home from './pages/Home'
 import ListaRequisicoes from './pages/ListaRequisicoes'
 import MinhasRequisicoes from './pages/MinhasRequisicoes'
+import Colaboradores from './pages/Colaboradores'
 
 function App() {
   const [usuario, setUsuario] = useState({id: "", email: "", senha: ""});
@@ -32,6 +33,7 @@ function App() {
               <Route path='/fornecedores' element={<Fornecedores />} />
               <Route path='/contatos' element={<Contatos />}/>
               <Route path='/produtos' element={<Produtos />}/>
+              <Route path='/colaboradores' element={<Colaboradores />}/>
               <Route path='/lista-requisicoes' element={<ListaRequisicoes />} />
               <Route path='*' element={<NaoEncontrada />}/>
             </Routes>

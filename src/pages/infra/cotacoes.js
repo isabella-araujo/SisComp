@@ -28,9 +28,6 @@ export async function excluirCotacao(id) {
         console.error("Erro ao excluir cotação", error);
     }
 }
-export async function excluirContato(id) {
-    await deleteDoc(doc(db, "contatos", id));
-}
 
 
 export async function alterarCotacao(cotacao) {

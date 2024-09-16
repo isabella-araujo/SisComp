@@ -18,7 +18,7 @@ export default function ListaRequisicoes() {
         }
         fetchData()
         console.log("atualizou")
-    });
+    }, [requisicao]);
 
     return (
         <div className="lista-requisicoes">
@@ -30,6 +30,7 @@ export default function ListaRequisicoes() {
                 {requisicoes.map((item, index) => (
                     <div>
                         <RequisicaoAdmin
+                            size="500px"
                             key={index}
                             requisicao={item}
                             setRequisicao={setRequisicao}

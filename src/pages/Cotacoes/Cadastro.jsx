@@ -25,19 +25,18 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao, setRequisicao, req
         }
 
         fetchData();
-    }, [idEmEdicao]);
+    }, [requisicao]);
 
     async function submeterDados(dados) {
-        if (idEmEdicao) {
-            await alterarCotacao({ ...dados, id: idEmEdicao });
-            setIdEmEdicao('');
-            setRequisicao({});
-        } else {
+        try {
             console.log(dados)
             let id = await inserirCotacao(dados);
             await alterarRequisicao({ ...requisicao, cotacoes: [...(requisicao.cotacoes || []), dados] });
+        } catch(error) {
+            console.log(error)
+        } finally {
+            setRequisicao({})
         }
-        reset();
     }
 
     return (

@@ -26,11 +26,6 @@ export default function RequisicaoAdmin({ requisicao, setRequisicao, size, child
         setStatus(status);
     }
 
-    async function handleExcluir(id) {
-        console.log(id)
-        await excluirRequisicao(id);
-    }
-
     useEffect(() => {
         console.log(requisicao);
         definirStatus();
@@ -70,7 +65,7 @@ export default function RequisicaoAdmin({ requisicao, setRequisicao, size, child
                     <p>{requisicao.observacoes}</p>
                 </div>
                 <Button onClick={() => setRequisicao(requisicao)} size='40%'>Adicionar Cotação</Button>
-                <Button onClick={() => handleExcluir(requisicao.id)} size='40%'>Excluir Requisição</Button>
+                
                 {children}
             </div>
         </div>

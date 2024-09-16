@@ -41,7 +41,7 @@ export default function NavBar({setUsuario}) {
                             </li>
                         </ul>
                     </nav>
-                    <ButtonOutlined onClick={handleClick}>Logout</ButtonOutlined>
+                    <ButtonOutlined className="self-center" onClick={handleClick}>Logout</ButtonOutlined>
                 </div>
             </div>
             <Outlet />

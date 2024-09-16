@@ -115,7 +115,7 @@ export default function Cadastro({ idEmEdicao, setIdEmEdicao }) {
 
     return (
         <>
-            <Container>
+            <Container width="90%">
                 <Input
                     name="nome"
                     type="text"

@@ -35,18 +35,21 @@ export default function CadastroRequisicaoCompra() {
         }
 
         fetchData()
-    }, []);
+    }, [requisicao]);
 
     async function handleSubmit() {
-        const id = await inserirRequisicao(requisicao, usuario);
-        if (id) {
-            setMensagem('Requisição cadastrada com sucesso!');
-            setErro('');
-        } else {
+        try {
+            const id = await inserirRequisicao(requisicao, usuario);
+        } catch(error) {
+            console.error(error);
             setErro('Erro ao cadastrar a requisição');
             setMensagem('');
+        } finally {
+            setMensagem('Requisição cadastrada com sucesso!');
+            setErro('');
+            setRequisicao({});
+            console.log(requisicao);
         }
-        console.log(requisicao);
     }
 
 
