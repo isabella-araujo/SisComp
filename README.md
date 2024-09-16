@@ -12,9 +12,11 @@ O projeto trata-se de um sistema de gerenciamento de compras para a empresa ACME
 <h3 id="funcionalidades">Funcionalidades</h3>
 
 * Cadastrar produtos.
-* Cadastrar cotações.
 * Cadastrar fornecedores.
 * Cadastrar contatos de fornecedores.
+* Cadastrar de Requisições pelos Colaboradores.
+* Cadastrar Cotações feitas por Colaboradores como Administrador.
+* Bloquear acesso de Colaboradores.
 
 As informações dos itens cadastrados são salvas no firestore.
 
