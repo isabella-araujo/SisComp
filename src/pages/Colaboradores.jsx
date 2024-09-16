@@ -47,7 +47,7 @@ export default function Colaboradores() {
         columns={colunas}
         data={colaboradores}
         pagination
-        paginationPerPage={5}
+        paginationPerPage={10}
         dense
         responsive
         striped

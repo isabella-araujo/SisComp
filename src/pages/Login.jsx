@@ -20,21 +20,34 @@ export default function Login({ setUsuario }) {
         fetchData();
     }, []);
 
+
     async function handleClick(e) {
         const email = document.getElementById("email").value;
         const senha = document.getElementById("senha").value;
 
-        for (let i = 0; i <= colaboradoresBloqueados.length; i++) {
-            if (colaboradoresBloqueados[i].email === email) {
-                setErro("Colaborador " + colaboradoresBloqueados[i].email + " Bloqueado. Entre em contato com o Administrador.");
+        if (colaboradoresBloqueados.length === 0) {
+            const usuario = await logarUsuario(email, senha);
+            if (usuario.id) {
+                setUsuario(usuario);
+                navigate("/");
+                setErro('');
             } else {
-                const usuario = await logarUsuario(email, senha);
-                if (usuario.id) {
-                    setUsuario(usuario);
-                    navigate("/");
-                    setErro('');
+                setErro("Credenciais inválidas");
+            }
+
+        } else {
+            for (let i = 0; i <= colaboradoresBloqueados.length; i++) {
+                if (colaboradoresBloqueados[i].email === email) {
+                    setErro("Colaborador " + colaboradoresBloqueados[i].email + " Bloqueado. Entre em contato com o Administrador.");
                 } else {
-                    setErro("Credenciais inválidas");
+                    const usuario = await logarUsuario(email, senha);
+                    if (usuario.id) {
+                        setUsuario(usuario);
+                        navigate("/");
+                        setErro('');
+                    } else {
+                        setErro("Credenciais inválidas");
+                    }
                 }
             }
         }
